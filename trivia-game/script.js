@@ -99,7 +99,7 @@ gameTitle.textContent = "⚡ Quick Fire Trivia ⚡"
 // questionCard.classList.add("answered")
 // questionCard.classList.remove("answered")
 
-answerList.addEventListener("click", (event) => {
+//PHASE4:
   // 1. If the click was not on a BUTTON element, return early and do nothing
   //    hint: check event.target.tagName — it will be the string "BUTTON" if a button was clicked
 
@@ -118,6 +118,9 @@ answerList.addEventListener("click", (event) => {
   //    hint: convert to a real array and use forEach to add "disabled" to each
 
   // 6. Add "answered" to questionCard and remove "hidden" from nextBtn
+
+
+answerList.addEventListener("click", (event) => {
 console.log(event.target)
 if (event.target.tagName !== "BUTTON") {
   return
@@ -152,6 +155,43 @@ console.log(event.target)
 console.log(event.currentTarget)
 })
 
+//Phase5
+nextBtn.addEventListener("click", () => {
+  currentIndex = currentIndex + 1
+
+  if (currentIndex < questions.length) {
+    loadQuestion(currentIndex)
+  } else {
+    showEndScreen()
+  }
+})
+
+function showEndScreen() {
+  questionCard.classList.add("hidden")
+
+  endScreen.classList.remove("hidden")
+
+  const finalScore = document.createElement("h2")
+  finalScore.textContent = `You scored ${score} out of ${questions.length}`
+
+  const mesg = document.createElement("p")
+
+  if (score > 4) {
+    mesg.textContent = `Great Work! You got a perfect score!`
+  } else if (score > 2){ 
+    mesg.textContent = `Good Work! You passed!`
+  } else {
+      mesg.textContent = `Sorry, you failed. Good luck next time!`
+  }
+
+  const rstrtBtn = document.createElement("button")
+  rstrtBtn.id = "restart-btn"
+  rstrtBtn.textContent = "Play Again" 
+
+  endScreen.appendChild(finalScore)
+  endScreen.appendChild(mesg)
+  endScreen.appendChild(rstrtBtn)
+}
 
 
 function loadQuestion(index) {
@@ -173,7 +213,6 @@ function loadQuestion(index) {
 answerList.addEventListener("click", (event) => {
     console.log("target:", event.target)
     console.log("currentTarget:", event.currentTarget)
-    
 })
 
 loadQuestion(currentIndex)
@@ -184,3 +223,4 @@ loadQuestion(currentIndex)
 // What is the difference between event.target and event.currentTarget here?
 // event.target  → The exact element that was clicked, such as an answer button.
 // event.currentTarget → The element with the event listener, which is #answer-list.
+
