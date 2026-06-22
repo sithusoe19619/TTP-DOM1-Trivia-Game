@@ -121,8 +121,7 @@ gameTitle.textContent = "⚡ Quick Fire Trivia ⚡"
 
 
 answerList.addEventListener("click", (event) => {
-console.log(event.target)
-if (event.target.tagName !== "BUTTON") {
+  if (event.target.tagName !== "BUTTON") {
   return
 }
 
@@ -181,7 +180,7 @@ function showEndScreen() {
   } else if (score > 2){ 
     mesg.textContent = `Good Work! You passed!`
   } else {
-      mesg.textContent = `Sorry, you failed. Good luck next time!`
+      mesg.textContent = "Sorry, you failed. Good luck next time!"
   }
 
   const rstrtBtn = document.createElement("button")
@@ -193,6 +192,24 @@ function showEndScreen() {
   endScreen.appendChild(rstrtBtn)
 }
 
+endScreen.addEventListener("click", (event) => {
+  if (event.target.id !== "restart-btn") {
+    return
+  }
+
+  currentIndex = 0
+  score = 0
+
+  scoreDisplay.textContent = score
+
+  endScreen.innerHTML = ""
+
+  endScreen.classList.add("hidden")
+
+  questionCard.classList.remove("hidden")
+
+  loadQuestion(currentIndex)
+})
 
 function loadQuestion(index) {
     // ASK ABOUT THIS!!!
